@@ -36,12 +36,16 @@ function getLayers() {
 
     if (des.type === 'Listed Building') {
 
-      const listed = createNewLayer(des.geometry, 'Point');
+      const listed = createNewLayer(des.geometry, '#FF0000', 'Point');
       listedGroup.addLayer(listed).addTo(map);
 
     } else if (des.type === 'Scheduled Monument') {
 
-      createNewLayer(des.geometry).addTo(map);
+      createNewLayer(des.geometry, '#00FF00').addTo(map);
+
+    } else if (des.type === 'World Heritage Site') {
+
+      createNewLayer(des.geometry, '#0000FF').addTo(map);
 
     }
 
@@ -52,7 +56,7 @@ function getLayers() {
 }
 
 
-function createNewLayer(geometry, type = 'MultiPolygon') {
+function createNewLayer(geometry, fill, type = 'MultiPolygon') {
 
   if (type === 'Point') {
 
@@ -64,7 +68,7 @@ function createNewLayer(geometry, type = 'MultiPolygon') {
           radius: 10,
           color: '#000000',
           weight: 2,
-          fillColor: '#FF0000',
+          fillColor: fill,
           fillOpacity: 0.5,
         });
 
@@ -77,9 +81,9 @@ function createNewLayer(geometry, type = 'MultiPolygon') {
     return L.geoJSON(geometry, {
 
       style: {
-        color: '#000000', // outline
+        color: '#000000',
         weight: 2,
-        fillColor: '#0000FF', // blue
+        fillColor: fill,
         fillOpacity: 0.5,
       }
 
