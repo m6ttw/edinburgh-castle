@@ -36,12 +36,23 @@ function getLayers() {
     if (des.type === 'Listed Building') {
 
       // const layer = createNewLayer(des.geometry);
+      // const layer = L.geoJSON(des.geometry, {
+			// 	style: {
+			// 		color: '#000000', // outline
+			// 		weight: 2,
+			// 		fillColor: '#FF0000', //red
+			// 		fillOpacity: 0.5,
+			// 	}
+			// })
       const layer = L.geoJSON(des.geometry, {
-				style: {
-					color: '#000000', // outline
-					weight: 2,
-					fillColor: '#FF0000', //red
-					fillOpacity: 0.5,
+				pointToLayer: function(point, latlng) {
+					return new L.CircleMarker(latlng, {
+						radius: 10,
+						color: '#000000',
+						weight: 2,
+						fillColor: '#FF0000',
+						fillOpacity: 0.5,
+					});
 				}
 			})
 
