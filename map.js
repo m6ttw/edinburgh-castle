@@ -34,24 +34,31 @@ function getLayers() {
 
   for (const des of castle.designations) {
 
-    if (des.type === 'Listed Building') {
+    switch (des.type) {
 
-      const listed = createNewLayer(des.geometry, '#FF0000', 'Point');
-      listedGroup.addLayer(listed).addTo(map);
+      case 'Listed Building':
+        const listed = createNewLayer(des.geometry, '#FF0000', 'Point');
+        listedGroup.addLayer(listed).addTo(map);
+        break;
+      
+      case 'Scheduled Monument':
+        createNewLayer(des.geometry, '#00FF00').addTo(map);
+        break;
 
-    } else if (des.type === 'Scheduled Monument') {
+      case 'World Heritage Site':
+        createNewLayer(des.geometry, '#0000FF').addTo(map);
+        break;
 
-      createNewLayer(des.geometry, '#00FF00').addTo(map);
-
-    } else if (des.type === 'World Heritage Site') {
-
-      createNewLayer(des.geometry, '#0000FF').addTo(map);
-
+      default:
+        return false; console.log('switch default');
+      
     }
 
   }
 
   getBoundary();
+  
+  // map.setZoom(13);
 
 }
 
