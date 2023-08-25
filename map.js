@@ -1,4 +1,5 @@
 import castle from './castle-geo.json' assert {type: 'json'};
+console.log(castle);
 
 const map = L.map('map').setView([55.948612, -3.200833], 13);
 
@@ -35,18 +36,12 @@ function getLayers() {
 
     if (des.type === 'Listed Building') {
 
-      // const layer = createNewLayer(des.geometry);
-      // const layer = L.geoJSON(des.geometry, {
-			// 	style: {
-			// 		color: '#000000', // outline
-			// 		weight: 2,
-			// 		fillColor: '#FF0000', //red
-			// 		fillOpacity: 0.5,
-			// 	}
-			// })
-      const listed = createNewLayer(des.geometry);
-
+      const listed = createNewLayer(des.geometry, 'Point');
       listedGroup.addLayer(listed).addTo(map);
+
+    } else if (des.type === 'Scheduled Monument') {
+
+      createNewLayer(des.geometry).addTo(map);
 
     }
 
@@ -57,18 +52,41 @@ function getLayers() {
 }
 
 
-function createNewLayer(geometry) {
-  return L.geoJSON(geometry, {
-    pointToLayer: function(point, latlng) {
-      return new L.CircleMarker(latlng, {
-        radius: 10,
-        color: '#000000',
+function createNewLayer(geometry, type = 'MultiPolygon') {
+
+  if (type === 'Point') {
+
+    return L.geoJSON(geometry, {
+
+      pointToLayer: function(point, latlng) {
+        
+        return new L.CircleMarker(latlng, {
+          radius: 10,
+          color: '#000000',
+          weight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.5,
+        });
+
+      }
+
+    })
+
+  } else {
+
+    return L.geoJSON(geometry, {
+
+      style: {
+        color: '#000000', // outline
         weight: 2,
-        fillColor: '#FF0000',
+        fillColor: '#0000FF', // blue
         fillOpacity: 0.5,
-      });
-    }
-  })
+      }
+
+    })
+
+  }
+  
 }
 
 
