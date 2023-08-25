@@ -1,11 +1,17 @@
 import boundary from './boundary-geo.json' assert {type: 'json'};
 import designations from './designations-geo.json' assert {type: 'json'};
 
-console.log(boundary);
-console.log(designations);
-
 const map = L.map('map').setView([55.948612, -3.200833], 13);
 
+getMap();
+
+
+function getMap() {
+  
+  setupMap(map);
+  getBoundary();
+
+}
 
 
 function setupMap(map) {
@@ -21,4 +27,17 @@ function setupMap(map) {
 
 }
 
-setupMap(map);
+
+function getBoundary() {
+
+  const castle = L.geoJSON(boundary, {
+    style: {	
+      color: '#000000', 
+      weight: 7.5
+    }
+  });
+
+  castle.addTo(map);
+  map.fitBounds(castle.getBounds());
+
+}
