@@ -1,5 +1,4 @@
-import boundary from './boundary-geo.json' assert {type: 'json'};
-import designations from './designations-geo.json' assert {type: 'json'};
+import castle from './castle-geo.json' assert {type: 'json'};
 
 const map = L.map('map').setView([55.948612, -3.200833], 13);
 
@@ -9,7 +8,7 @@ getMap();
 function getMap() {
   
   setupMap(map);
-  getBoundary();
+  getLayers();
 
 }
 
@@ -28,16 +27,37 @@ function setupMap(map) {
 }
 
 
+function getLayers() {
+
+  const listedGroup = new L.LayerGroup();
+
+  for (const des of castle.designations) {
+
+    if (des.type === 'Listed Buildings') {
+
+      //create new layer
+      //add to layer group
+      // add layer group to map
+
+    }
+
+  }
+
+  getBoundary();
+
+}
+
+
 function getBoundary() {
 
-  const castle = L.geoJSON(boundary, {
+  const boundary = L.geoJSON(castle.boundary, {
     style: {	
       color: '#000000', 
       weight: 7.5
     }
   });
 
-  castle.addTo(map);
-  map.fitBounds(castle.getBounds());
+  boundary.addTo(map);
+  map.fitBounds(boundary.getBounds());
 
 }
