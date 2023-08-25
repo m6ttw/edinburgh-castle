@@ -44,19 +44,9 @@ function getLayers() {
 			// 		fillOpacity: 0.5,
 			// 	}
 			// })
-      const layer = L.geoJSON(des.geometry, {
-				pointToLayer: function(point, latlng) {
-					return new L.CircleMarker(latlng, {
-						radius: 10,
-						color: '#000000',
-						weight: 2,
-						fillColor: '#FF0000',
-						fillOpacity: 0.5,
-					});
-				}
-			})
+      const listed = createNewLayer(des.geometry);
 
-      listedGroup.addLayer(layer).addTo(map);
+      listedGroup.addLayer(listed).addTo(map);
 
     }
 
@@ -67,9 +57,19 @@ function getLayers() {
 }
 
 
-// function createNewLayer() {
-
-// }
+function createNewLayer(geometry) {
+  return L.geoJSON(geometry, {
+    pointToLayer: function(point, latlng) {
+      return new L.CircleMarker(latlng, {
+        radius: 10,
+        color: '#000000',
+        weight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.5,
+      });
+    }
+  })
+}
 
 
 function getBoundary() {
