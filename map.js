@@ -33,11 +33,19 @@ function getLayers() {
 
   for (const des of castle.designations) {
 
-    if (des.type === 'Listed Buildings') {
+    if (des.type === 'Listed Building') {
 
-      //create new layer
-      //add to layer group
-      // add layer group to map
+      // const layer = createNewLayer(des.geometry);
+      const layer = L.geoJSON(des.geometry, {
+				style: {
+					color: '#000000', // outline
+					weight: 2,
+					fillColor: '#FF0000', //red
+					fillOpacity: 0.5,
+				}
+			})
+
+      listedGroup.addLayer(layer).addTo(map);
 
     }
 
@@ -46,6 +54,11 @@ function getLayers() {
   getBoundary();
 
 }
+
+
+// function createNewLayer() {
+
+// }
 
 
 function getBoundary() {
