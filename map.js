@@ -9,6 +9,7 @@ function getMap() {
   
   setupMap();
   getLayers();
+  getBoundary();
 
 }
 
@@ -16,7 +17,7 @@ function getMap() {
 function setupMap() {
 
   map.zoomControl.remove();
-	L.control.zoom({position: 'bottomright'}).addTo(map);
+  L.control.zoom({position: 'bottomright'}).addTo(map);
   L.control.scale({maxWidth: 200}).addTo(map);
 
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -36,7 +37,7 @@ function getLayers() {
     switch (des.type) {
 
       case 'Listed Building':
-        const listed = createNewLayer(des.geometry, '#FFFFFF', 'Point');
+        const listed = createNewLayer(des.geometry, '#000000', 'Point');
         listedGroup.addLayer(listed).addTo(map);
         break;
       
@@ -64,7 +65,6 @@ function getLayers() {
 
   }
 
-  getBoundary();
   // map.setZoom(13);
 
 }
