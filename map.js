@@ -1,6 +1,5 @@
 import castle from './castle-geo.json' assert {type: 'json'};
-console.log(castle);
-
+// console.log(castle);
 const map = L.map('map').setView([55.948612, -3.200833], 13);
 
 getMap();
@@ -8,13 +7,13 @@ getMap();
 
 function getMap() {
   
-  setupMap(map);
+  setupMap();
   getLayers();
 
 }
 
 
-function setupMap(map) {
+function setupMap() {
 
   map.zoomControl.remove();
 	L.control.zoom({position: 'bottomright'}).addTo(map);
@@ -37,12 +36,20 @@ function getLayers() {
     switch (des.type) {
 
       case 'Listed Building':
-        const listed = createNewLayer(des.geometry, '#FF0000', 'Point');
+        const listed = createNewLayer(des.geometry, '#FFFFFF', 'Point');
         listedGroup.addLayer(listed).addTo(map);
         break;
       
-      case 'Scheduled Monument':
+      case 'Conservation Area':
+        createNewLayer(des.geometry, '#FF0000').addTo(map);
+        break;
+
+      case 'Gardens and Designed Landscapes':
         createNewLayer(des.geometry, '#00FF00').addTo(map);
+        break;
+      
+      case 'Scheduled Monument':
+        createNewLayer(des.geometry, '#FFFF00').addTo(map);
         break;
 
       case 'World Heritage Site':
@@ -50,14 +57,14 @@ function getLayers() {
         break;
 
       default:
-        return false; console.log('switch default');
+        console.log('switch default');
+        return false;
       
     }
 
   }
 
   getBoundary();
-  
   // map.setZoom(13);
 
 }
