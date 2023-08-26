@@ -1,17 +1,10 @@
 import castle from './castle-geo.json' assert {type: 'json'};
 // console.log(castle);
 const map = L.map('map').setView([55.948612, -3.200833], 13);
-
-getMap();
-
-
-function getMap() {
   
-  setupMap();
-  getLayers();
-  getBoundary();
-
-}
+setupMap();
+getLayers();
+getBoundary();
 
 
 function setupMap() {
@@ -64,8 +57,6 @@ function getLayers() {
     }
 
   }
-
-  // map.setZoom(13);
 
 }
 
