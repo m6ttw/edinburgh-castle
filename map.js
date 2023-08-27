@@ -27,27 +27,35 @@ function getLayers() {
 
   for (const des of castle.designations) {
 
+      const popup = `
+        ${des.type}
+        <br>
+        <a target="_blank" href="${des.url}">${des.title}</a>
+        <br>
+        ${des.number}
+      `;
+
     switch (des.type) {
 
       case 'Listed Building':
-        const listed = createNewLayer(des.geometry, '#000000', 'Point');
+        const listed = createNewLayer(des.geometry, '#000000', 'Point').bindPopup(popup);
         listedGroup.addLayer(listed).addTo(map);
         break;
       
       case 'Conservation Area':
-        createNewLayer(des.geometry, '#FF0000').addTo(map);
+        createNewLayer(des.geometry, '#FF0000').bindPopup(popup).addTo(map);
         break;
 
       case 'Gardens and Designed Landscapes':
-        createNewLayer(des.geometry, '#00FF00').addTo(map);
+        createNewLayer(des.geometry, '#00FF00').bindPopup(popup).addTo(map);
         break;
       
       case 'Scheduled Monument':
-        createNewLayer(des.geometry, '#FFFF00').addTo(map);
+        createNewLayer(des.geometry, '#FFFF00').bindPopup(popup).addTo(map);
         break;
 
       case 'World Heritage Site':
-        createNewLayer(des.geometry, '#0000FF').addTo(map);
+        createNewLayer(des.geometry, '#0000FF').bindPopup(popup).addTo(map);
         break;
 
       default:
